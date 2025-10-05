@@ -1,42 +1,42 @@
 pipeline {
-agent any
-stages {
-stage('Checkout Code') {
-steps {
-echo 'Checking out code from GitHub repository...'
-checkout scm
-}
-}
-stage('Install Dependencies') {
-steps {
-echo 'Installing npm dependencies...'
-sh 'npm install'
-}
-}
-stage('Run Tests') {
-steps {
-echo 'Running test suite...'
-sh 'npm test || echo "Tests completed"'
-}
-}
-stage('Generate Coverage') {
-steps {
-echo 'Generating code coverage report...'
-sh 'npm run coverage || echo "Coverage report generated"'
-}
-}
-stage('Security Scan') {
-steps {
-echo '========================================='
-echo 'Running security vulnerability scan...'
-echo '========================================='
-sh 'npm audit || echo "Security scan completed"'
-}
-}
-}
-post {
-}
-always {
-echo 'Pipeline execution finished!'
-}
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Checking out code from GitHub repository...'
+                checkout scm
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing npm dependencies...'
+                sh 'npm install'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                echo 'Running test suite...'
+                sh 'npm test || echo "Tests completed"'
+            }
+        }
+        stage('Generate Coverage') {
+            steps {
+                echo 'Generating code coverage report...'
+                sh 'npm run coverage || echo "Coverage report generated"'
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                echo '========================================='
+                echo 'Running security vulnerability scan...'
+                echo '========================================='
+                sh 'npm audit || echo "Security scan completed"'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline execution finished!'
+        }
+    }
 }
