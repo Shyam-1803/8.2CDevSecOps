@@ -25,12 +25,11 @@ sh 'npm test || echo "Integration tests completed"'
 echo 'Integration tests executed successfully'
 }
 }
-echo "Stage completed"
 stage('Code Analysis') {
 steps {
 echo '=== STAGE 4: CODE ANALYSIS ==='
 echo 'Analyzing code quality with SonarQube...'
-sh 'npm audit --json > analysis.json || echo "Code analysis
+sh 'npm audit --json > analysis.json || echo "Code analysis completed"'
 echo 'Code analysis completed successfully'
 }
 }
