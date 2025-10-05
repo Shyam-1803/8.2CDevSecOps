@@ -30,7 +30,7 @@ Status: ${currentBuild.result ?: 'SUCCESS'}
 URL: ${env.BUILD_URL}
 Test stage completed successfully.
 """,
-                        to: 'shyamkumarj18@gmail.com',
+                        to: 's225056172@deakin.edu.au',
                         attachLog: true
                     )
                 }
@@ -53,7 +53,7 @@ Status: ${currentBuild.result ?: 'SUCCESS'}
 URL: ${env.BUILD_URL}
 Security scan completed with results.
 """,
-                        to: 'shyamkumarj18@gmail.com',
+                        to: 's225056172@deakin.edu.au',
                         attachLog: true
                     )
                 }
@@ -72,7 +72,7 @@ Final Status: ${currentBuild.result ?: 'SUCCESS'}
 Duration: ${currentBuild.durationString}
 All pipeline stages completed.
 """,
-                to: 'shyamkumarj18@gmail.com',
+                to: 's225056172@deakin.edu.au',
                 attachLog: true
             )
         }
