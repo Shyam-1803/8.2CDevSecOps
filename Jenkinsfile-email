@@ -1,29 +1,28 @@
 pipeline {
-agent any
-stages {
-stage('Checkout Code') {
-steps {
-echo 'Checking out code from repository...'
-checkout scm
-}
-}
-stage('Install Dependencies') {
-steps {
-echo 'Installing dependencies...'
-sh 'npm install'
-}
-}
-stage('Run Tests') {
-steps {
-echo 'Running tests...'
-sh 'npm test || echo "Tests completed"'
-}
-post {
-always {
-emailext (
-subject: "TEST STAGE - Build ${env.BUILD_NUMBER} -
-${currentBuild.result ?: 'SUCCESS'}",
-body: """
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Checking out code from repository...'
+                checkout scm
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing dependencies...'
+                sh 'npm install'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                echo 'Running tests...'
+                sh 'npm test || echo "Tests completed"'
+            }
+            post {
+                always {
+                    emailext (
+                        subject: "TEST STAGE - Build ${env.BUILD_NUMBER} - ${currentBuild.result ?: 'SUCCESS'}",
+                        body: """
 Jenkins Build Notification - Test Stage
 Project: 8.2CDevSecOps
 Build: ${env.BUILD_NUMBER}
@@ -31,24 +30,22 @@ Status: ${currentBuild.result ?: 'SUCCESS'}
 URL: ${env.BUILD_URL}
 Test stage completed successfully.
 """,
-to: 's225056172@deakin.edu.au',
-attachLog: true
-)
-}
-}
-}
-stage('Security Scan') {
-steps {
-echo 'Running security scan...'
-sh 'npm audit --audit-level moderate || echo "Security scan
-completed"'
-}
-post {
-always {
-emailext (
-subject: "SECURITY SCAN - Build ${env.BUILD_NUMBER}
-- ${currentBuild.result ?: 'SUCCESS'}",
-body: """
+                        to: 's225056172@deakin.edu.au',
+                        attachLog: true
+                    )
+                }
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                echo 'Running security scan...'
+                sh 'npm audit --audit-level moderate || echo "Security scan completed"'
+            }
+            post {
+                always {
+                    emailext (
+                        subject: "SECURITY SCAN - Build ${env.BUILD_NUMBER} - ${currentBuild.result ?: 'SUCCESS'}",
+                        body: """
 Jenkins Security Scan Notification
 Project: 8.2CDevSecOps
 Build: ${env.BUILD_NUMBER}
@@ -56,19 +53,18 @@ Status: ${currentBuild.result ?: 'SUCCESS'}
 URL: ${env.BUILD_URL}
 Security scan completed with results.
 """,
-to: 's225056172@deakin.edu.au',
-attachLog: true
-)
-}
-}
-}
-}
-post {
-always {
-emailext (
-subject: "BUILD COMPLETE - ${env.JOB_NAME}
-${env.BUILD_NUMBER} - ${currentBuild.result ?: 'SUCCESS'}",
-body: """
+                        to: 's225056172@deakin.edu.au',
+                        attachLog: true
+                    )
+                }
+            }
+        }
+    }
+    post {
+        always {
+            emailext (
+                subject: "BUILD COMPLETE - ${env.JOB_NAME} ${env.BUILD_NUMBER} - ${currentBuild.result ?: 'SUCCESS'}",
+                body: """
 Final Build Summary
 Project: ${env.JOB_NAME}
 Build: ${env.BUILD_NUMBER}
@@ -76,9 +72,9 @@ Final Status: ${currentBuild.result ?: 'SUCCESS'}
 Duration: ${currentBuild.durationString}
 All pipeline stages completed.
 """,
-to: 's225056172@deakin.edu.au',
-attachLog: true
-)
-}
-}
+                to: 's225056172@deakin.edu.au',
+                attachLog: true
+            )
+        }
+    }
 }
