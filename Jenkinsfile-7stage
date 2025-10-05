@@ -25,7 +25,7 @@ sh 'npm test || echo "Integration tests completed"'
 echo 'Integration tests executed successfully'
 }
 }
-completed'
+echo "Stage completed"
 stage('Code Analysis') {
 steps {
 echo '=== STAGE 4: CODE ANALYSIS ==='
