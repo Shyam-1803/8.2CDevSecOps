@@ -25,15 +25,15 @@ sh 'npm test || echo "Integration tests completed"'
 echo 'Integration tests executed successfully'
 }
 }
+completed"'
 stage('Code Analysis') {
 steps {
 echo '=== STAGE 4: CODE ANALYSIS ==='
 echo 'Analyzing code quality with SonarQube...'
-sh 'npm audit --json > analysis.json || echo "Code analysis completed"'
+sh 'npm audit --json > analysis.json || echo "Code analysis
 echo 'Code analysis completed successfully'
 }
-}
-stage('Security Scan') {
+}stage('Security Scan') {
 steps {
 echo '=== STAGE 5: SECURITY SCAN ==='
 echo 'Running security scan with OWASP Dependency Check...'
